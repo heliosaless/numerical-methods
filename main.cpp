@@ -2,9 +2,16 @@
 #include <math.h> 
 using namespace std;
 
+/*
+*	Nome: Helio Matheus Sales Silva
+*	Matr : 400800
+*	
+	
+	Acho que o as 4derivadas não estão funcionando muito bem :/
+*/
+
 double function(double x){
-	//return pow(sin(2*x) + 4*x*x + 3*x, 4);
-	return sin(x);
+	return pow(sin(2*x) + 4*x*x + 3*x, 4);
 }
 
 double closed_first(double xi, double xf, double delx){
@@ -98,7 +105,7 @@ int main(int argc, char const *argv[])
 	int degree = 1;
 	int a = 0;
 	int b = 1;
-	double eplison = 0.001;
+	double eplison = 0.000001;
 
 	run(a, b, eplison, true, 1);
 	run(a, b, eplison, false, 1);
