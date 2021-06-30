@@ -11,7 +11,7 @@ using namespace std;
 */
 
 double function(double x){
-	return pow(sin(2*x) + 4*x*x + 3*x, 4);
+	return pow(sin(2*x) + 4*x*x + 3*x, 2);
 }
 
 double closed_first(double xi, double xf, double delx){
