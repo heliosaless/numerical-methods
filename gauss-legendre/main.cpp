@@ -173,7 +173,7 @@ void printExp(double a, double b, int points, int exp, double eplison1, double e
 		if(exp == 2) cout << " Double Exponential";
 		else {cout << "\n\n\n Use print instead.! \n";}
 	} 
-	cout << " formula: " <<  r.value << " with c = " << r.it << endl;
+	cout << ": " <<  r.value << " with c = " << r.it << endl;
 }
 
 int main(int argc, char const *argv[])
