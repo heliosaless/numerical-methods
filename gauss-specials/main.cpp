@@ -2,12 +2,6 @@
 #include <math.h> 
 using namespace std;
 
-/*
-*	Nome: Helio Matheus Sales Silva
-*	Matr : 400800
-*	
-
-*/
 
 double f(double x){
 	return pow(sin(2*x) + 4*x*x + 3*x, 2);

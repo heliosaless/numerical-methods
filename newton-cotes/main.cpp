@@ -4,13 +4,6 @@
 
 using namespace std;
 
-/*
-*	Nome: Helio Matheus Sales Silva
-*	Matr : 400800
-*	
-	
-	Acho que o as 4derivadas não estão funcionando muito bem :/
-*/
 
 double xExp(double s, double a, double b){
 	return ((a+b) + (b-a)*tanh(s))/2;
