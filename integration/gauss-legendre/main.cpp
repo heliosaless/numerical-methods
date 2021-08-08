@@ -24,8 +24,8 @@ double dxExpExp(double s, double a, double b){
 
 double function(double x){
 	//return pow(sin(2*x) + 4*x*x + 3*x, 2);
-	return 1/sqrt(x);
-	//return pow(x,-0.66666666666);
+	//return 1/sqrt(x);
+	return pow(x,-0.66666666666);
 	//return 1/(sqrt(4-pow(x,2)));
 }
 

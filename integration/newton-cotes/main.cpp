@@ -140,7 +140,7 @@ struct info runExp(double a, double b,  int points, bool closed, int exp, double
 	while(error >= eplison1){
 		new_ = integrate(-c, c, points, closed, eplison2, exp, a, b).value;
 
-		c = c + 0.1;
+		c = c + 0.01;
 		if(old_ != 0) error = fabs(new_ - old_)/old_;
 		old_ = new_;
 	}
