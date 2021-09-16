@@ -25,8 +25,9 @@ double dxExpExp(double s, double a, double b){
 double function(double x){
 	//return pow(sin(2*x) + 4*x*x + 3*x, 2);
 	//return 1/sqrt(x);
-	return pow(x,-0.66666666666);
+	//return 1/pow(pow(x, 2),1./3);
 	//return 1/(sqrt(4-pow(x,2)));
+	return log(2*x)*cos(4*x);
 }
 
 double f(double x, int exp, double a, double b){
@@ -57,16 +58,17 @@ double gl2point(double xi, double xf, int exp, double a, double b){
 
 double gl3point(double xi, double xf, int exp, double a, double b){
 	double alpha1 = -0.77459666924;
-	double alpha2 = 0;
+	double alpha2 = 0.;
 	double alpha3 = 0.77459666924;
 	double fx1 = f(x(alpha1, xi, xf), exp, a, b );
 	double fx2 = f(x(alpha2, xi, xf), exp, a, b );
 	double fx3 = f(x(alpha3, xi, xf), exp, a, b );
+
 	double w1 = 0.55555555555;
 	double w2 = 0.88888888888;
 	double w3 = 0.55555555555;
 
-	double i = 0;
+	double i = 0.;
 
 	i += fx1*w1;
 	i += fx2*w2;
@@ -112,20 +114,19 @@ struct info{
  
 struct info integrate(double a, double b, int points, double eplison, int exp=0, double a_ = 0, double b_ = 0){
 	double old_ = 0, new_ = 0, error = 10000;
-	int n = 0;
+	int n = 1;
 
 	while(error >= eplison){
-		n = n + 1;
+		n = n * 2;
 		double delx = (b-a)/(double)n;
 		new_ = 0;
-
 		for (int k = 0; k < n; k++){
 			double xi = a + k*delx;
 			double xf = xi + delx;
 			new_ += integrate_(xi, xf, points, exp, a_, b_);
 		}
-
-		if(old_ != 0) error = fabs(new_ - old_)/old_;
+		if(old_ != 0) error = fabs((new_ - old_)/new_);
+		//cout << error << " " << new_ << endl;
 		old_ = new_;
 	}
 	struct info r;
@@ -141,9 +142,9 @@ struct info runExp(double a, double b,  int points, int exp, double eplison1, do
 	double error = 10000;
 	while(error >= eplison1){
 		new_ = integrate(-c, c, points,eplison2, exp, a, b).value;
-
 		c = c + 0.1;
 		if(old_ != 0) error = fabs(new_ - old_)/old_;
+		// cout << error <<  endl;
 		old_ = new_;
 	}
 
@@ -174,22 +175,22 @@ int main(int argc, char const *argv[])
 {
 
 	double a = 0;
-	double b = 1;
+	double b = 5;
 	int points = 2;
 	double eplison1 = 10e-6;
-	double eplison2 = 10e-6;
+	double eplison2 = 10e-3;
 	int exp = 1;
 
+	// print(a, b, points+2, eplison1);
 
 	print(a,b, points, eplison1);
 	print(a,b, points+1, eplison1);
 	print(a,b, points+2, eplison1);
-	printExp(a,b, points, exp, eplison1, eplison2);
-	printExp(a,b, points+1, exp, eplison1, eplison2);
-	printExp(a,b, points+2, exp, eplison1, eplison2);
-	printExp(a,b, points, exp+1, eplison1, eplison2);
-	printExp(a,b, points+1, exp+1, eplison1, eplison2);
-	printExp(a,b, points+2, exp+1, eplison1, eplison2);
+
+	// printExp(a,b, points, exp, eplison1, eplison2);
+	// printExp(a,b, points+1, exp, eplison1, eplison2);
+	// printExp(a,b, points, exp+1, eplison1, eplison2);
+	// printExp(a,b, points+2, exp+1, eplison1, eplison2);
 
 
 	return 0;

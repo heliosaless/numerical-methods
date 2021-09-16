@@ -112,8 +112,9 @@ State AdamsMoulton::next(State s3, const double delta, State s2, State s1, State
         State a = s3 + (delta/24)*((9.)*aux.derivative(g,m,k) + 19*s3.derivative(g,m,k)
                                              + (-5)*s2.derivative(g,m,k) + s1.derivative(g,m,k));
 
-        
-        if(((a - aux)/a).mod() < epls) return a;
+
+        // std::cout << ((a - aux)).mod() << std::endl;
+        if(((a - aux)).mod() < epls) return a;
 
         aux.setV(a.getV());
         aux.setY(a.getY());
@@ -130,38 +131,38 @@ int main(int argc, char const *argv[])
     const double time = 10;
     double delta = 0.1;
     
-    RungeKutta rk(10., 2., 1./4);
-    AdamsMoulton adam(10., 2., 1./4);
+    RungeKutta rk(10., 2., 0);
+    AdamsMoulton adam(10., 2., 0);
     State initial(5., 200.);
 
-    while (delta >= 0.0001)
-    {
-        std::cout << "Usando delta = " << delta << std::endl;
+    // while (delta >= 0.0001)
+    // {
+    //     std::cout << "Usando delta = " << delta << std::endl;
 
-        int count = at(time, start, delta);
-        State s0 = initial;
-        State s1 = rk.next(s0, delta);
-        State s2 = rk.next(s1, delta);
-        State s3 = rk.next(s2, delta);
+    //     int count = at(time, start, delta);
+    //     State s0 = initial;
+    //     State s1 = rk.next(s0, delta);
+    //     State s2 = rk.next(s1, delta);
+    //     State s3 = rk.next(s2, delta);
 
-        while (--count >= 0)
-        {
-            State a = adam.next(s3, delta, s2, s1, s0);
-            if (count == 0)
-                std::cout << "\tNo tempo 10 temos valor " << a.getY() << std::endl;
+    //     while (--count >= 0)
+    //     {
+    //         State a = adam.next(s3, delta, s2, s1, s0);
+    //         if (count == 0)
+    //             std::cout << "\tNo tempo 10 temos valor " << a.getY() << std::endl;
             
-            s0.setV(s1.getV());
-            s0.setY(s1.getY());
-            s1.setV(s2.getV());
-            s1.setY(s2.getY());
-            s2.setV(s3.getV());
-            s2.setY(s3.getY());
-            s3.setV(a.getV());
-            s3.setY(a.getY());
-        }
+    //         s0.setV(s1.getV());
+    //         s0.setY(s1.getY());
+    //         s1.setV(s2.getV());
+    //         s1.setY(s2.getY());
+    //         s2.setV(s3.getV());
+    //         s2.setY(s3.getY());
+    //         s3.setV(a.getV());
+    //         s3.setY(a.getY());
+    //     }
 
-        delta = delta / 10;
-    }
+    //     delta = delta / 10;
+    // }
 
     delta = 0.1;
     int stateNumber = 3;
@@ -173,8 +174,6 @@ int main(int argc, char const *argv[])
     State s2 = rk.next(s1, delta);
     State s3 = rk.next(s2, delta);
 
-    std::cout << std::endl;
-
     while(true){
         ++stateNumber;
         State a = adam.next(s3, delta, s2, s1, s0);
@@ -184,7 +183,6 @@ int main(int argc, char const *argv[])
             std::cout << " Essa altura ocorreu " << (stateNumber-1)*delta << "s apos o lancamento." << std::endl;
             cond1 = true;
         }
-
         if(!cond2 && a.getY() < 0){
             double tempo = ((start + (stateNumber-1)*delta)+(start + stateNumber*delta))/2;
             std::cout << "\tCruzou o mar no tempo " << tempo << "s";
